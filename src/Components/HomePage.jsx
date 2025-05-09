@@ -96,7 +96,7 @@ const touristPlaces = [
 ];
 
 
-const HomePage = () => {
+const Homepage = () => {
     const {theme,toggleTheme} = useContext(CustomThemeContext)
   return (
     <div className='w-full h-full'>
@@ -294,4 +294,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default Homepage

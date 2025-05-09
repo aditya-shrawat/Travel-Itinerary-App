@@ -1,10 +1,10 @@
 import React from 'react'
-import HomePage from './Components/Homepage'
+import Homepage from './Components/Homepage'
 
 const App = () => {
   return (
     <div className='w-full h-full'>
-      <HomePage />
+      <Homepage />
     </div>
   )
 }
