@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import {CustomThemeContext} from '../Context/CustomThemeProvider'
 
 const ActivityCard = ({touristPlace}) => {
+  const {theme} = useContext(CustomThemeContext)
+
   return (
-    <div className="w-full md:min-w-54 md:max-w-96 flex md:flex-col bg-[#FDFBF7] rounded-lg overflow-hidden border-[1px] border-gray-300">
+    <div className={`w-full md:min-w-54 md:max-w-96 flex md:flex-col rounded-lg overflow-hidden 
+    ${(theme==='dark')?`dark:border-none dark:bg-[#333333]`:`bg-[#FDFBF7] border-[1px] border-[#BFBFBF]`}`}>
       <div className="max-w-32 min-w-32 min-h-32 max-h-full md:h-44 md:w-full md:min-w-full ">
         <img
           src={`${touristPlace.placeImg}`}

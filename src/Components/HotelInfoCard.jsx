@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdStar } from "react-icons/io";
 import { PiClockCountdownBold } from "react-icons/pi";
+import {CustomThemeContext} from '../Context/CustomThemeProvider'
 
 const HotelInfoCard = ({hotel}) => {
+    const {theme} = useContext(CustomThemeContext)
+
   return (
-    <div className="w-[198px] h-60 flex-shrink-0 bg-[#FDFBF7] border-[1px] border-[#BFBFBF] rounded-2xl overflow-hidden cursor-pointer group ">
+    <div className={`w-[198px] h-60 flex-shrink-0 ${(theme==='dark')?`dark:border-none dark:bg-[#333333]`:`bg-[#FDFBF7] border-[1px] border-[#BFBFBF]`} rounded-2xl overflow-hidden cursor-pointer group `}>
         <div className="w-full h-32 relative overflow-hidden">
             <img
             src={`${hotel.hotelImg}`}

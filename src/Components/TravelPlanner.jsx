@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RiMapPinLine } from "react-icons/ri";
 import { ImMan } from "react-icons/im";
 import { ImManWoman } from "react-icons/im";
@@ -6,9 +6,11 @@ import { MdOutlineFamilyRestroom } from "react-icons/md";
 import { GiThreeFriends } from "react-icons/gi";
 import { FiCalendar } from "react-icons/fi";
 import { MdOutlineClose } from "react-icons/md";
+import {CustomThemeContext} from '../Context/CustomThemeProvider'
 
-const TravelPlanner = () => {
+const TravelPlanner = ({onClose}) => {
   const [isShown, setIsShown] = useState(false);
+  const {theme} = useContext(CustomThemeContext)
   
   useEffect(() => {
     // small delay to update state changes
@@ -19,23 +21,30 @@ const TravelPlanner = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleClose = () => {
+    setIsShown(false);
+    setTimeout(() => {
+      onClose();
+    }, 200);
+  };
 
   return (
-    <div className=" fixed inset-0 z-50  ">
-      <div className='w-full h-screen px-4 py-12 bg-[#FDFBF7]'>
+    <div className=" fixed inset-0 z-50 flex sm:items-center justify-center  ">
+      <div className={`w-full h-screen px-4 py-12 ${(theme==='dark'?`dark:bg-[#181517]`:`bg-[#FDFBF7]`)} transform transition-all duration-300 ease-out
+            ${(isShown)?`translate-y-0` :`translate-y-full`}` }>
         <div className="h-full flex flex-col justify-between relative">
           {/* Button to close TravelPlanner */}
-          <div className=" text-xl w-auto h-auto absolute -top-9 right-0">
+          <div onClick={handleClose} className=" text-xl w-auto h-auto absolute -top-9 right-0">
             <MdOutlineClose />
           </div>
 
           <div>
             {/* heading */}
             <div className="mb-8">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold">
                 Plan Your Journey, Your Way!
               </h1>
-              <p className="text-sm text-gray-600">
+              <p className={`text-sm ${(theme!=='dark')&&`text-[#666666]`}`}>
                 Let's create your personalised travel experience
               </p>
             </div>
@@ -46,9 +55,9 @@ const TravelPlanner = () => {
                 <label className="block text-lg font-semibold">
                   Where would you like to go?
                 </label>
-                <div className="mt-2 p-2 border-[1px] border-[#BFBFBF] rounded-lg flex">
+                <div className={`mt-2 p-2 ${(theme==='dark')?`bg-[#333333] border-none`:`border-[1px] border-[#BFBFBF] text-[#666666]`} rounded-lg flex items-center`}>
                   <div className=" flex items-center">
-                    <RiMapPinLine className="text-lg text-[#666666]" />
+                    <RiMapPinLine className={`text-lg ${(theme!=='dark')&&`text-[#666666]`}`} />
                   </div>
                   <input
                     id="destination"
@@ -62,11 +71,11 @@ const TravelPlanner = () => {
               <div>
                 <label
                   htmlFor="duration"
-                  className="block text-lg font-semibold text-gray-900"
+                  className="block text-lg font-semibold "
                 >
                   How long will you stay?
                 </label>
-                <div className="mt-2 p-2 text-[#666666] border-[1px] border-[#BFBFBF] rounded-lg flex items-center">
+                <div className={`mt-2 p-2 ${(theme==='dark')?`bg-[#333333] border-none`:`border-[1px] border-[#BFBFBF] text-[#666666]`} rounded-lg flex items-center`}>
                   <FiCalendar className="mr-2 text-lg" />
                   <select className="w-full text-base outline-none border-none">
                     <option >Select Duration</option>
@@ -76,23 +85,23 @@ const TravelPlanner = () => {
 
               {/* traveling with */}
               <div>
-                <label className="block text-lg font-semibold text-gray-900">
+                <label className="block text-lg font-semibold ">
                   Who are you traveling with?
                 </label>
                 <div className="mt-2 grid grid-cols-2 gap-3">
-                  <button className="text-lg border-[1px] border-[#BFBFBF] rounded-lg flex items-center justify-center py-2">
+                  <button className={`text-lg ${(theme==='dark')?`bg-[#333333] border-none`:`border-[1px] border-[#BFBFBF]`} rounded-lg flex items-center justify-center py-2`}>
                     <span className="mr-2 text-xl"><ImMan /></span>
                     Solo
                   </button>
-                  <button className="text-lg border-[1px] border-[#BFBFBF] rounded-lg flex items-center justify-center py-2">
+                  <button className={`text-lg ${(theme==='dark')?`bg-[#333333] border-none`:`border-[1px] border-[#BFBFBF]`} rounded-lg flex items-center justify-center py-2`}>
                     <span className="mr-2 text-xl"><ImManWoman /></span>
                     Couple
                   </button>
-                  <button className="text-lg border-[1px] border-[#BFBFBF] rounded-lg flex items-center justify-center py-2">
+                  <button className={`text-lg ${(theme==='dark')?`bg-[#333333] border-none`:`border-[1px] border-[#BFBFBF]`} rounded-lg flex items-center justify-center py-2`}>
                     <span className="mr-2 text-xl"><MdOutlineFamilyRestroom /></span>
                     Family
                   </button>
-                  <button className="text-lg border-[1px] border-[#BFBFBF] rounded-lg flex items-center justify-center py-2">
+                  <button className={`text-lg ${(theme==='dark')?`bg-[#333333] border-none`:`border-[1px] border-[#BFBFBF]`} rounded-lg flex items-center justify-center py-2`}>
                     <span className="mr-2 text-xl"><GiThreeFriends /></span>
                     Friends
                   </button>
